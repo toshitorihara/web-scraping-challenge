@@ -28,6 +28,6 @@ Complete initial scraping using Jupyter Notebook, BeautifulSoup, Pandas, and Req
 
 ## Part II - MongoDB and Flask Application
 Use MongoDB with Flask templating to create a new HTML page that displays all of the information that was scraped from the URLs above.
-* Convert [**Jupyter notebook**](Missions_to_Mars/mission_to_mars.ipynb) into a [**Python script**](Missions_to_Mars/scrape_mars.py) with a function called `scrape` that will execute all of the scraping code from above and return one Python dictionary containing all of the scraped data.
+* Convert the **Jupyter notebook** into a [**Python script**](Missions_to_Mars/scrape_mars.py) with a function called `scrape` that will execute all of the scraping code from above and return one Python dictionary containing all of the scraped data.
 * Create a [**Python application**](Missions_to_Mars/app.py) with route called `/scrape` that will import `scrape_mars.py` script to `app.py` and call the scrape function using Pymongo and store the return value in Mongo as a Python dictionary.
 * Create a root route `/` that will query the Mongo database and pass into a template [**HTML file**](Missions_to_Mars/templates/index.html) that will take the mars data dictionary and display all of the data in the appropriate HTML elements. 
