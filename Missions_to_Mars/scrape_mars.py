@@ -13,7 +13,7 @@ def scrape_all():
         'news_title': news_title,
         'news_p': news_p,
         'featured_image_url': scrape_mars_image(),
-        'html_table': scrape_mars_facts(),
+        'fact_table': scrape_mars_facts(),
         'hemisphere_images_urls': scrape_mars_hemispheres()
     }
 
@@ -60,10 +60,10 @@ def scrape_mars_facts():
 
     mars_df.columns = ['Parameter', 'Value']
     mars_df.set_index('Parameter', inplace = True)
-    html_table = mars_df.to_html()
-    html_table.replace('\n', '')
+    fact_table = mars_df.to_html()
+    fact_table.replace('\n', '')
     
-    return html_table
+    return fact_table
 
 def scrape_mars_hemispheres():
 
