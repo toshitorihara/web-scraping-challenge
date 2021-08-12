@@ -13,7 +13,7 @@ def scrape_all():
         'news_title': news_title,
         'news_p': news_p,
         'featured_image_url': scrape_mars_image(),
-        'fact_table': scrape_mars_facts(),
+        'html_table': scrape_mars_facts(),
         'hemisphere_images_urls': scrape_mars_hemispheres()
     }
 
@@ -22,7 +22,8 @@ def scrape_all():
 def scrape_mars_news():
 
     browser = init_browser()
-    browser.visit('https://redplanetscience.com/')
+    news_url = 'https://redplanetscience.com/'
+    browser.visit(news_url)
 
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
@@ -38,16 +39,15 @@ def scrape_mars_image():
 
     browser = init_browser()
 
-    browser.visit('https://spaceimages-mars.com/')
+    images_url = 'https://spaceimages-mars.com/'
+    browser.visit(images_url)
     browser.links.find_by_partial_text('FULL IMAGE')
-
+    
     html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
 
-    featured_image = soup.find('img', class_='headerimage')['src']
-    main_url = 'https://spaceimages-mars.com/'
-    
-    featured_image_url = main_url + featured_image
+    featured_image = soup.find('img', class_='headerimage')['src']    
+    featured_image_url = images_url + featured_image
     
     browser.quit()   
     
@@ -69,13 +69,16 @@ def scrape_mars_hemispheres():
 
     browser = init_browser()
 
-    browser.visit('https://marshemispheres.com/')
-    html = browser.html
+    hemispheres_url = 'https://marshemispheres.com/'
+    browser.visit(hemispheres_url)   
 
+    html = browser.html
     soup = BeautifulSoup(html, 'html.parser')
+
     items = soup.find_all('div', class_='item')
 
     hemisphere_image_urls = []
+
     for item in items:
         title = item.find('h3').text
         hemisphere_url = 'https://marshemispheres.com/' + item.find('a', class_='itemLink product-item')['href']
@@ -88,6 +91,6 @@ def scrape_mars_hemispheres():
         hemisphere_image_url = 'https://marshemispheres.com/' + soup.find('img', class_='wide-image')['src']
         hemisphere_image_urls.append({'title': title, 'img_url': hemisphere_image_url})
         
-        browser.quit()   
+    browser.quit()   
         
     return hemisphere_image_urls
